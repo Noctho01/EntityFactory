@@ -63,9 +63,9 @@ module.exports = class EntityMaker {
 
     #tratarEsquema(esquema) {
         /*
-        Chacando se esquema é necessario, caso sim o codigo
-        continua, caso não, a decição de sua criçao sera decidida
-        aleatoriamente usando a lib random
+            verificando se esquema é necessario, caso sim o codigo
+            continua, caso não, a decição de sua criçao sera decidida
+            aleatoriamente usando a lib random
         */
         const esquemaNecessario = esquema.require ? 1 : random.boolean()
         if (!esquemaNecessario) return null
@@ -75,6 +75,12 @@ module.exports = class EntityMaker {
             this.#tratamentoModelos(esquema.modelos, esquema.space)
     }
 
+
+    /*
+        chama função que ficara responsavel por
+        gerar um valor aleatorio para este campo
+        baseado em seu tipo
+    */
     #tratamentoType(type, description, minMax) {
         switch (type) {
             case 'email' :
@@ -93,7 +99,12 @@ module.exports = class EntityMaker {
                 return this.#gerarData(description)
         }
     }
+    
 
+    /*
+        Gera valor aleatorio para o campo baseado
+        nos valores disponiveis em @modelos
+    */
     #tratamentoModelos(modelos, space) {
         if (modelos instanceof Array) return modelos[random.int(0, modelos.length - 1)]
         
@@ -103,6 +114,8 @@ module.exports = class EntityMaker {
         })
         return valor.trim()
     }
+
+
     // ....................................................................................
     // Geradores de valores ...............................................................
 
@@ -183,6 +196,10 @@ module.exports = class EntityMaker {
     // .....................................................................................
     // Metodos de Tratamento reservado .....................................................
 
+    /*
+        Tratamento do tipo de case da string
+        cami cases, upper cases, lower cases...
+    */
     #tratarCaseString(string, caseString, space) {
         let newString = ''
 
@@ -217,6 +234,11 @@ module.exports = class EntityMaker {
         return newString.trim()
     }
 
+
+    /*
+        Tratamento do tamanho do valor voltado
+        para o tipo string de DataTypes
+    */
     #tratarLengthString(length, include) {
         let strings = []
         
