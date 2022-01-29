@@ -14,7 +14,7 @@
 
 ~~~
 > git init
-> git clone https://github.com/Noctho01/auto-createPost.git
+> git clone https://github.com/Noctho01/EntityFactory.git
 > npm install
 ~~~
 
