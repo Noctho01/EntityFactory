@@ -1,9 +1,9 @@
 <h1 align="center"> :busts_in_silhouette: EntityFactory :factory: </h1>
 <p> Gera entidades de formulários (usuários, produtos, categorias etc) e envia para o body da requisição post de sua API </p>
-
-#
+<br>
 
 <h2>:ballot_box: Dependencias </h2>
+
 - axios : https://axios-http.com/docs/intro
 - npm random : https://github.com/transitive-bullshit/random
 - npm cross-env : https://www.npmjs.com/package/cross-env
