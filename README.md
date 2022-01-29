@@ -76,7 +76,6 @@ module.exports = {
 
 <h4><code> require </code></h4>
 <p> especifica se o campo é obrigatorio ou não, caso não seja, o campo pode ser ou não criado, a decisao é feita aleatoriamente</p>
-<br>
 
 <h4><code> type </code></h4>
 <p> usando DataTypes, deve informar qual será o tipo do valor deste campo
@@ -91,7 +90,6 @@ module.exports = {
   <li><b>booleano</b> ==> valores booleanos true, false || 1, 0</li>
 </ul>
 </p>
-<br>
 
 <h4><code> description </code></h4>
 <p> Especifica as regras aplicadas naquele campo, porem elas seguem o seu tipo. Casa tipo de dados possui um grupo especifico de descriços</p>
