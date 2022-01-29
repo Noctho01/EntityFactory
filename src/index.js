@@ -3,13 +3,13 @@ require('dotenv').config()
 const axios = require('axios')
 
 // Esquema de regras de negocio da entidade que sera criada
-const esquema = require(`./esquemas/nome_esquema`)
+const esquema = require(`./esquemas/${process.env.E}`)
 
  // Endpoint da api que recebera a requisição POST
-const urlApiPlayforward = `http://localhost:3000/criar_usuario`
+const urlApiPlayforward = process.env.R
 
 const EntityFactory = require('./EntityFactory/EntityFactory')
-const entidades = EntityFactory(esquema, 5) 
+const entidades = EntityFactory(esquema, process.env.Q) 
 
 // Varrendo array com objetos entidade criados para efeturar o post
 entidades.forEach( async entidade => {
