@@ -34,7 +34,7 @@ module.exports = class EntityMaker {
                 null
             */
     
-        data: 'data'
+        date: 'date'
             /* Description
                 yMaxMin: [1999, 2005]
                 mMaxMin: [1, 12]
@@ -94,7 +94,7 @@ module.exports = class EntityMaker {
                 return random.float(minMax[0], minMax[1]).toFixed(2)
             case 'booleano' :
                 return random.boolean()
-            case 'data' :
+            case 'date' :
                 return this.#generateDate(description)
         }
     }

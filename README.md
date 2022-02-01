@@ -43,7 +43,7 @@ Para isso EntityFactory faz juiz ao nome criando (fabricando) entidades especifi
 <br>
 
 <h3>:memo: Criando um esquema </h3>
-<p> dentro do diretorio /src/esquemas, crie um arquivo com o nome da entidade que pretende criar <br> Exemplo: <code>usuario.js</code></p>
+<p> dentro do diretorio /src/schemes, crie um arquivo com o nome da entidade que pretende criar <br> Exemplo: <code>user.js</code></p>
 
 ~~~~js
 const { DataTypes, Cases } = require('../EntityFactory/core/EntityMaker')
@@ -83,7 +83,7 @@ module.exports = {
 <ul>
   <li><b>email</b> ==> abc123@foo.com</li>
   <li><b>cpf</b> ==> gera um cpf valido sem pontos "xxxxxxxxxxx"</li>
-  <li><b>data</b> ==> 1999/01/12 gera apenas datas, não gera horarios</li>
+  <li><b>date</b> ==> 1999/01/12 gera apenas datas, não gera horarios</li>
   <li><b>string</b> ==> valores em string, podem conter letras, numeros ou caracteres especiais (isso é determinado na propriedade <b><i>include</i></b> de string)</li>
   <li><b>inter</b> ==> valores inteiros do tipo numero</li>
   <li><b>float</b> ==> valores float do tipo numero</li>
@@ -103,14 +103,14 @@ module.exports = {
 | case            | DataTypes.string                                   | 'camiCase', 'upperCase', 'lowerCase', 'textCase'           | valor em string dos tipos de case da string ex case: Cases.camiCase \|\| "camiCase" >> "FubarDeMilho"                                                                                           |
 | include         | DataTypes.string DataTypes.email                   | tipo email: ['abc', '123', '...'] tipo string: 'abc123...' | campo obrigatorio, especifica os caracteres que serão usados para gerar o valor do campo ex: <string> include: "bo15" >> "b1oob55" <email> include: ["bo", "15"] >> boob515@email.com           |
 | dominionsModels | DataTypes.email                                    | ['gmail', 'hotmail', 'yahoo', '...']                       | campo obrigatorio para tipo email, especifica em um array os host de email                                                                                                                      |
-| yMinMax         | DataTypes.data                                     | [anoMinimo, anoMaximo]                                     | especifica o ano minimo e maximo a ser gerado pelo programa ex: yMinMax: [2002, 2004] >> 2002 \|\| 2003 \|\| 2004                                                                               |
-| mMinMax         | DataTypes.data                                     | [mesMinimo, mesMaximo]                                     | especifica o mes minimo e maximo a ser gerado pelo programa ex: mMinMax: [1, 12] >> 8 \|\| ...                                                                                                  |
-| dMinMax         | DataTypes.data                                     | [diaMinimo, diaMaximo]                                     | especifica o dia minimo e maximo a ser gerado pelo programa ex: dMinMax: [1, 31] >> 19 \|\| ...                                                                                                 |
+| yMinMax         | DataTypes.date                                     | [anoMinimo, anoMaximo]                                     | especifica o ano minimo e maximo a ser gerado pelo programa ex: yMinMax: [2002, 2004] >> 2002 \|\| 2003 \|\| 2004                                                                               |
+| mMinMax         | DataTypes.date                                     | [mesMinimo, mesMaximo]                                     | especifica o mes minimo e maximo a ser gerado pelo programa ex: mMinMax: [1, 12] >> 8 \|\| ...                                                                                                  |
+| dMinMax         | DataTypes.date                                     | [diaMinimo, diaMaximo]                                     | especifica o dia minimo e maximo a ser gerado pelo programa ex: dMinMax: [1, 31] >> 19 \|\| ...                                                                                                 |
 <br>
 
 <br> 
  <h2>:kaaba: Modelos </h2>
- <p> Os modelos são valores que voce estabelece para que sejam escolhidos aleatoriamente para aquele campo em especifico, campos que possuem modelos não precisam ter um tipo, apenas usando a propriedade <code>modelos</code> e nele passando um array com os possiveis valores a serem escolhidos.<br> Dentro de /src/modelos voce deve criar um arquivo chamado modelos.js </p>
+ <p> Os modelos são valores que voce estabelece para que sejam escolhidos aleatoriamente para aquele campo em especifico, campos que possuem modelos não precisam ter um tipo, apenas usando a propriedade <code>modelos</code> e nele passando um array com os possiveis valores a serem escolhidos.<br> Dentro de /src/models voce deve criar um arquivo chamado models.js </p>
  
  ~~~~js
  // Exemplo de um arquivo modelos.js
@@ -149,7 +149,7 @@ module.exports = {
  
  ~~~~js
  const { DataTypes, Cases } = require('../EntityFactory/core/EntityMaker')
- const Modelos = require('../modelos/modelos_examples')
+ const Models = require('../models/models_examples')
  
  module.exports = { /* Esquema aqui */ }
  ~~~~
@@ -162,7 +162,7 @@ module.exports = {
    nome: {
      require: true,
      space: true,
-     modelos: Modelos.nomes || ['Pedro', 'Carla', 'Marcos', 'Felipe', 'Angela'] || { primeiroNome: ['Pedro', 'Marcos'], segundoNome: ['Da Silva', 'Dos Santos'] }
+     models: Models.nomes || ['Pedro', 'Carla', 'Marcos', 'Felipe', 'Angela'] || { primeiroNome: ['Pedro', 'Marcos'], segundoNome: ['Da Silva', 'Dos Santos'] }
    }
  }
  ~~~~

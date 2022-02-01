@@ -32,7 +32,7 @@ module.exports = {
     },
     birth_date: {
         require: true,
-        type: DataTypes.data,
+        type: DataTypes.date,
         description: {
             yMinMax: [1990, 2010],
             mMinMax: [1, 12],
