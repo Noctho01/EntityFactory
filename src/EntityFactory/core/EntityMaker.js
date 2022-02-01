@@ -192,48 +192,35 @@ module.exports = class EntityMaker {
         para o tipo string de DataTypes
     */
     #treateLengthString(length, include) {
-        let strings = []   
-        if (length > 3 && length <= 10) {
-            const numStrings = 2
-            for ( let i = 0; i < numStrings; i++ ) {
-                let string = ''
-                for ( let i = 0; i < (length / numStrings); i++ ) {
-                    const index = random.int(0, include.length - 1)
-                    string += include[index]
-                }           
-                strings.push(string)
-            }
-        } else if (length > 10 && length <= 15) {
-            const numStrings = 3
-            for ( let i = 0; i < numStrings; i++ ) {
-                let string = '' 
-                for ( let i = 0; i < (length / numStrings); i++ ) {
-                    const index = random.int(0, include.length - 1)
-                    string += include[index]
-                }
-                strings.push(string)
-            }
-        } else if (length > 15 && length <= 20) {
-            const numStrings = 4
-            for ( let i = 0; i < numStrings; i++ ) {
-                let string = '' 
-                for ( let i = 0; i < (length / numStrings); i++ ) {
-                    const index = random.int(0, include.length - 1)
-                    string += include[index]
-                }
-                strings.push(string)
-            }
-        } else if (length > 20) {
-            const numStrings = random.int(6, 8)
-            for ( let i = 0; i < numStrings; i++ ) {
-                let string = '' 
-                for ( let i = 0; i < (length / numStrings); i++ ) {
-                    const index = random.int(0, include.length - 1)
-                    string += include[index]
-                }
-                strings.push(string)
-            }
+        const strings = []
+        const string = []
+        const div = (length > 3 && length <= 10) ? 2 :
+            (length > 10 && length <= 15) ? 3 :
+            (length > 15 && length <= 20) ? 4 :
+            (length > 20) ? random.int(6, 8) : 1
+        
+        const index = Math.round(length / div)
+
+        while (string.length != length) {
+            string.push(include[random.int(0, include.length -1)])
         }
+
+        for (let i = 0; i < div; i++) {
+            let stringTemporaria = ''
+            for (let j = 0; j < index + 1; j++) {
+                if (string[0]) {
+                    stringTemporaria += string[0]
+                    string.shift()
+                }
+            }
+            strings.push(stringTemporaria)
+        }
+
+        console.log({
+            string: string,
+            strings: strings
+        })
+
         return strings
     }
 }

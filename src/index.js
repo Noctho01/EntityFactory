@@ -11,6 +11,8 @@ const urlApiPlayforward = process.env.R
 const EntityFactory = require('./EntityFactory/EntityFactory')
 const entitys = EntityFactory(scheme, process.env.Q)
 
+console.log(entitys)
+
 // Varrendo array com objetos entidade criados para efeturar o post
 entitys.forEach( async entity => {
     try {
