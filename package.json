@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "keywords": [],
   "author": "Vinicius Dos Santos Rodrigues <vinicius.dev01@gmail.com>",
@@ -16,6 +16,7 @@
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
+    "jest": "^27.4.7",
     "nodemon": "^2.0.15"
   }
 }

@@ -45,29 +45,35 @@ Para isso EntityFactory faz juiz ao nome criando (fabricando) entidades especifi
 <h3>:memo: Criando um esquema </h3>
 <p> dentro do diretorio /src/schemes, crie um arquivo com o nome da entidade que pretende criar <br> Exemplo: <code>user.js</code></p>
 
-~~~~js
-const { DataTypes, Cases } = require('../EntityFactory/core/EntityMaker')
+<img src="images/path-schemes.png">
+<br>
+<br>
 
-module.exports = { /* esquema aqui */ }
-~~~~
-
-<p> Na primeira linha importamos os objetos que auxiliarão na especifação das regras no esquema</p>
-<p><b><i>DataTypes</i></b> : objeto com especificação dos tipos de dados que podem ser gerados <br> <b><i>Cases</i></b> : objeto com especificações dos tipos de cases de uma string (cami cases, upper cases...)<p>
-
-#
-
-<p> Em seguida voce deve informar as regras do esquema, segue agora como montar um esquema </p>
+<p> Este arquivo deve exportar um objeto que possua as regras (contrato), este objeto é o esquema da sua entidade</p>
 
 ~~~~js
 module.exports = {
+  name: {
+    require: false,
+    models: ['Jhon', 'Mike', 'Sarah', 'Lessie']
+  },
   email: {
     require: true,
-    type: DataTypes.string,
+    type: 'email',
     description: {
-      space: true,
       minMax: [5, 10],
-      include: 'aeioubdc',
-      case: Cases.camiCase
+      include: ['aeioubdc', '123'],
+      domainModels: ['gmail', 'hotmail', 'outlook']
+    }
+  },
+  password: {
+    require: true,
+    type: 'string',
+    description: {
+      minMax: [8, 15],
+      include: 'abc123',
+      space: false,
+      case: 'camiCase'
     }
   }
 }
@@ -97,15 +103,15 @@ module.exports = {
 
 | campo           | type                                               | valores                                                    | função                                                                                                                                                                                          |
 |-----------------|----------------------------------------------------|------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| space           | DataTypes.string Modelos                           | true/false or null                                         | especifica se o texto na string deve conter espaços entre palavras ex: space:true >> "Vitoria Reges" / space:false >> "VitoriaReges"                                                            |
-| minMax          | DataTypes.string  DataTypes.inter  DataTypes.float | [valMin, valMax]                                           | valMin: valor minimo que pode ser gerado pelo programa valMax: valor maximo que pode ser gerado pelo programa  (obs: para o tipo string possui a funcionalidade de limitar o tamanho da string) |
-| leng            | DataTypes.string                                   | numero inteiro                                             | valor fixo do tamanho da string                                                                                                                                                                 |
-| case            | DataTypes.string                                   | 'camiCase', 'upperCase', 'lowerCase', 'textCase'           | valor em string dos tipos de case da string ex case: Cases.camiCase \|\| "camiCase" >> "FubarDeMilho"                                                                                           |
-| include         | DataTypes.string DataTypes.email                   | tipo email: ['abc', '123', '...'] tipo string: 'abc123...' | campo obrigatorio, especifica os caracteres que serão usados para gerar o valor do campo ex: <string> include: "bo15" >> "b1oob55" <email> include: ["bo", "15"] >> boob515@email.com           |
-| dominionsModels | DataTypes.email                                    | ['gmail', 'hotmail', 'yahoo', '...']                       | campo obrigatorio para tipo email, especifica em um array os host de email                                                                                                                      |
-| yMinMax         | DataTypes.date                                     | [anoMinimo, anoMaximo]                                     | especifica o ano minimo e maximo a ser gerado pelo programa ex: yMinMax: [2002, 2004] >> 2002 \|\| 2003 \|\| 2004                                                                               |
-| mMinMax         | DataTypes.date                                     | [mesMinimo, mesMaximo]                                     | especifica o mes minimo e maximo a ser gerado pelo programa ex: mMinMax: [1, 12] >> 8 \|\| ...                                                                                                  |
-| dMinMax         | DataTypes.date                                     | [diaMinimo, diaMaximo]                                     | especifica o dia minimo e maximo a ser gerado pelo programa ex: dMinMax: [1, 31] >> 19 \|\| ...                                                                                                 |
+| space           | string Modelos                           | true/false or null                                         | especifica se o texto na string deve conter espaços entre palavras ex: space:true >> "Vitoria Reges" / space:false >> "VitoriaReges"                                                            |
+| minMax          | string/inter/float | [valMin, valMax]                                           | valMin: valor minimo que pode ser gerado pelo programa valMax: valor maximo que pode ser gerado pelo programa  (obs: para o tipo string possui a funcionalidade de limitar o tamanho da string) |
+| leng            | string                                   | numero inteiro                                             | valor fixo do tamanho da string                                                                                                                                                                 |
+| case            | string                                   | 'camiCase', 'upperCase', 'lowerCase', 'textCase'           | valor em string dos tipos de case da string ex case: camiCase \|\| "camiCase" >> "FubarDeMilho"                                                                                           |
+| include         | string/email                   | tipo email: ['abc', '123', '...'] tipo string: 'abc123...' | campo obrigatorio, especifica os caracteres que serão usados para gerar o valor do campo ex: <string> include: "bo15" >> "b1oob55" <email> include: ["bo", "15"] >> boob515@email.com           |
+| dominionsModels | email                                    | ['gmail', 'hotmail', 'yahoo', '...']                       | campo obrigatorio para tipo email, especifica em um array os host de email                                                                                                                      |
+| yMinMax         | date                                     | [anoMinimo, anoMaximo]                                     | especifica o ano minimo e maximo a ser gerado pelo programa ex: yMinMax: [2002, 2004] >> 2002 \|\| 2003 \|\| 2004                                                                               |
+| mMinMax         | date                                     | [mesMinimo, mesMaximo]                                     | especifica o mes minimo e maximo a ser gerado pelo programa ex: mMinMax: [1, 12] >> 8 \|\| ...                                                                                                  |
+| dMinMax         | date                                     | [diaMinimo, diaMaximo]                                     | especifica o dia minimo e maximo a ser gerado pelo programa ex: dMinMax: [1, 31] >> 19 \|\| ...                                                                                                 |
 <br>
 
 <br> 

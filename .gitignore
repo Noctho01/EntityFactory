@@ -2,3 +2,4 @@ node_modules
 src/models/models.js
 src/schemes/anunciante.js
 src/schemes/cliente.js
+test

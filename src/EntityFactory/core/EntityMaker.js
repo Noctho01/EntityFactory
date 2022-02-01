@@ -1,53 +1,6 @@
 const random = require('random')
 
 module.exports = class EntityMaker {
-    static DataTypes = {
-        email: 'email',
-            /* Description
-                include: ['letras', 'numeros', 'simbolos']
-                minMax: [min, max]
-                domainModels: ['gmail', 'hotmail', 'yahoo']
-                case: Object Cases
-            */
-           
-        cpf: 'cpf',
-            /* Description
-                null
-            */
-    
-        string: 'string',
-            /* Description
-                include: 'letras' + 'numeros' + 'simbolos'
-                minMax: [min, max]
-                leng: tamanho fixo
-                case: Object Cases
-            */
-    
-        inter: 'inter',
-        float: 'float',
-            /* Description
-                minMax: [min, max]
-            */
-    
-        booleano: 'booleano',
-            /* Description
-                null
-            */
-    
-        date: 'date'
-            /* Description
-                yMaxMin: [1999, 2005]
-                mMaxMin: [1, 12]
-                dMaxMin: [1, 30]
-            */
-    }
-    static Cases = {
-        upperCase: 'upperCase', // UPPER CASE
-        lowerCase: 'lowerCase', // lower case
-        camiCase: 'camiCase',   // Cami Case
-        textCase: 'textCase'    // Text case
-    }
-
     constructor(schemes) {
         this.entity = this.#schemeSweep(schemes)
     }
