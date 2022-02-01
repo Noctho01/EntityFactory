@@ -17,14 +17,14 @@
 
 module.exports = {
     // Modelos aqui ...
-    nomes: {
-        primeiro: [
+    names: {
+        firstNames: [
             'Gabriel', 'Gustavo', 'Pedro', 'Maria',
             'Rafael', 'Lucas', 'Alex', 'Barbara',
             'Natalia', 'Geni', 'Jose', 'Antonio',
             'Marcia'
         ],
-        segundo: [
+        secondNames: [
             'Dos Santos', 'Da Silva', 'Alencar',
             'De Nobrega', 'Diniz', 'Oliveira',
             'Dos Anjos', 'Gomes', 'Cunha',
@@ -35,7 +35,7 @@ module.exports = {
         'gmail', 'hotmail', 'alura',
         'yahoo', 'outlook', 'apple'
     ],
-    paises: [
+    countries: [
         'Brasil', 'Estados Unidos',
         'Argentina', 'China'
     ],

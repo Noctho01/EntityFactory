@@ -6,7 +6,7 @@ module.exports = class EntityMaker {
             /* Description
                 include: ['letras', 'numeros', 'simbolos']
                 minMax: [min, max]
-                dominiosModels: ['gmail', 'hotmail', 'yahoo']
+                domainModels: ['gmail', 'hotmail', 'yahoo']
                 case: Object Cases
             */
            
@@ -48,31 +48,30 @@ module.exports = class EntityMaker {
         textCase: 'textCase'    // Text case
     }
 
-    constructor(esquemas) {
-        this.entidade = this.#varrerEsquemas(esquemas)
+    constructor(schemes) {
+        this.entity = this.#schemeSweep(schemes)
     }
 
-    #varrerEsquemas(esquemas) {
-        const entidade = {}
-        Object.keys(esquemas).forEach( esquema => {
-            entidade[esquema] = this.#tratarEsquema(esquemas[esquema])
+    #schemeSweep(schemes) {
+        const entity = {}
+        Object.keys(schemes).forEach( scheme => {
+            entity[scheme] = this.#treatSqueme(schemes[scheme])
         })
-
-        return entidade
+        return entity
     }
 
-    #tratarEsquema(esquema) {
+    #treatSqueme(squeme) {
         /*
             verificando se esquema é necessario, caso sim o codigo
             continua, caso não, a decição de sua criçao sera decidida
             aleatoriamente usando a lib random
         */
-        const esquemaNecessario = esquema.require ? 1 : random.boolean()
-        if (!esquemaNecessario) return null
+        const necessarySqueme = squeme.require ? 1 : random.boolean()
+        if (!necessarySqueme) return null
             
-        return esquema.type ?
-            this.#tratamentoType(esquema.type, esquema.description, esquema.minMax || null) :
-            this.#tratamentoModelos(esquema.modelos, esquema.space)
+        return squeme.type ?
+            this.#treateType(squeme.type, squeme.description, squeme.minMax || null) :
+            this.#treateModels(squeme.models, squeme.space)
     }
 
 
@@ -81,14 +80,14 @@ module.exports = class EntityMaker {
         gerar um valor aleatorio para este campo
         baseado em seu tipo
     */
-    #tratamentoType(type, description, minMax) {
+    #treateType(type, description, minMax) {
         switch (type) {
             case 'email' :
-                return this.#gerarEmail(description)
+                return this.#generateEmail(description)
             case 'cpf' :
-                return this.#gerarCpf(description)
+                return this.#generateCpf(description)
             case 'string' :
-                return this.#gerarString(description)
+                return this.#generateString(description)
             case 'inter' :
                 return random.int(minMax[0], minMax[1])
             case 'float' :
@@ -96,7 +95,7 @@ module.exports = class EntityMaker {
             case 'booleano' :
                 return random.boolean()
             case 'data' :
-                return this.#gerarData(description)
+                return this.#generateDate(description)
         }
     }
     
@@ -105,50 +104,50 @@ module.exports = class EntityMaker {
         Gera valor aleatorio para o campo baseado
         nos valores disponiveis em @modelos
     */
-    #tratamentoModelos(modelos, space) {
-        if (modelos instanceof Array) return modelos[random.int(0, modelos.length - 1)]
+    #treateModels(models, space) {
+        if (models instanceof Array) return models[random.int(0, models.length - 1)]
         
-        let valor = ''
-        Object.keys(modelos).forEach( item => {
-            valor += modelos[item][random.int(0, modelos[item].length - 1)] + (space ? " ": "")
+        let value = ''
+        Object.keys(models).forEach( item => {
+            value += models[item][random.int(0, models[item].length - 1)] + (space ? " ": "")
         })
-        return valor.trim()
+        return value.trim()
     }
 
 
     // ....................................................................................
     // Geradores de valores ...............................................................
 
-    #gerarEmail(description) {
-        let endereco = ''
+    #generateEmail(description) {
+        let address = ''
         const length = random.int(description.minMax[0], description.minMax[1])
-        const dominiosModels = description.dominiosModels[
-            random.int(0, description.dominiosModels.length - 1)
+        const domainModels = description.domainModels[
+            random.int(0, description.domainModels.length - 1)
         ]
         description.include.forEach( item => {
             for (let i = 0; i < ((length / 2 ) - 1); i++) {
-                endereco += item[random.int(0, item.length - 1)]
+                address += item[random.int(0, item.length - 1)]
             }
         })
-        return `${endereco}@${dominiosModels}.com`
+        return `${address}@${domainModels}.com`
     }
 
-    #gerarString(description) {        
+    #generateString(description) {        
         const length = description.leng || random.int(description.minMax[0], description.minMax[1])
-        let string = this.#tratarLengthString(length, description.include)
+        let string = this.#treateLengthString(length, description.include)
 
-        return this.#tratarCaseString(string, description.case || 'textCase', description.space)
+        return this.#treateCaseString(string, description.case || 'textCase', description.space)
     }
 
-    #gerarData(description) {
-        const ano = random.int(description.yMinMax[0], description.yMinMax[1])
-        const mes = random.int(description.mMinMax[0], description.mMinMax[1])
-        const dia = random.int(description.dMinMax[0], description.dMinMax[1])
+    #generateDate(description) {
+        const year = random.int(description.yMinMax[0], description.yMinMax[1])
+        const month = random.int(description.mMinMax[0], description.mMinMax[1])
+        const day = random.int(description.dMinMax[0], description.dMinMax[1])
     
-        return `${ano}-${mes}-${dia}`
+        return `${year}-${month}-${day}`
     }
 
-    #gerarCpf() {
+    #generateCpf() {
         function CPF() {
             this.generate = function (formatted) {
                 formatted = formatted == undefined ? true : formatted;
@@ -200,34 +199,34 @@ module.exports = class EntityMaker {
         Tratamento do tipo de case da string
         cami cases, upper cases, lower cases...
     */
-    #tratarCaseString(string, caseString, space) {
+    #treateCaseString(string, caseString, space) {
         let newString = ''
 
         switch(caseString) {
             case 'camiCase':
-                string.forEach( nome => {
-                    newString += nome.replace(nome[0], nome[0].toUpperCase()) + (space ? " " : '')
+                string.forEach( name => {
+                    newString += name.replace(name[0], name[0].toUpperCase()) + (space ? " " : '')
                 })
                 break
         
             case 'lowerCase':
-                string.forEach( nome => {
-                    newString += nome.toLowerCase() + (space ? " " : '')
+                string.forEach( name => {
+                    newString += name.toLowerCase() + (space ? " " : '')
                 })
                 break
 
             case 'upperCase':
-                string.forEach( nome => {
-                    newString += nome.toUpperCase() + (space ? " " : '')
+                string.forEach( name => {
+                    newString += name.toUpperCase() + (space ? " " : '')
                 })
                 break
 
             case 'textCase':
-                string.forEach( nome => {
-                    if (nome == string[0]) {
-                        nome = nome.replace(nome[0], nome[0].toUpperCase())
+                string.forEach( name => {
+                    if (name == string[0]) {
+                        name = name.replace(name[0], name[0].toUpperCase())
                     }
-                    newString += nome + (space ? " " : '')
+                    newString += name + (space ? " " : '')
                 })
                 break
         }
@@ -239,63 +238,49 @@ module.exports = class EntityMaker {
         Tratamento do tamanho do valor voltado
         para o tipo string de DataTypes
     */
-    #tratarLengthString(length, include) {
-        let strings = []
-        
+    #treateLengthString(length, include) {
+        let strings = []   
         if (length > 3 && length <= 10) {
             const numStrings = 2
-
             for ( let i = 0; i < numStrings; i++ ) {
                 let string = ''
-
                 for ( let i = 0; i < (length / numStrings); i++ ) {
                     const index = random.int(0, include.length - 1)
                     string += include[index]
-                }
-                
+                }           
                 strings.push(string)
             }
         } else if (length > 10 && length <= 15) {
             const numStrings = 3
-            
             for ( let i = 0; i < numStrings; i++ ) {
                 let string = '' 
-
                 for ( let i = 0; i < (length / numStrings); i++ ) {
                     const index = random.int(0, include.length - 1)
                     string += include[index]
                 }
-
                 strings.push(string)
             }
         } else if (length > 15 && length <= 20) {
             const numStrings = 4
-            
             for ( let i = 0; i < numStrings; i++ ) {
                 let string = '' 
-
                 for ( let i = 0; i < (length / numStrings); i++ ) {
                     const index = random.int(0, include.length - 1)
                     string += include[index]
                 }
-
                 strings.push(string)
             }
         } else if (length > 20) {
             const numStrings = random.int(6, 8)
-            
             for ( let i = 0; i < numStrings; i++ ) {
                 let string = '' 
-
                 for ( let i = 0; i < (length / numStrings); i++ ) {
                     const index = random.int(0, include.length - 1)
                     string += include[index]
                 }
-
                 strings.push(string)
             }
         }
-
         return strings
     }
 }

@@ -1,11 +1,11 @@
 const  { DataTypes, Cases } = require('../EntityFactory/core/EntityMaker')
-const Modelos = require('../modelos/modelos_examples')
+const Models = require('../models/models_example')
 
 module.exports = {
-    nome: {
+    name: {
         require: true,
         space: true,
-        modelos: Modelos.nome
+        models: Models.names
     },
     email: {
         require: true,
@@ -13,10 +13,10 @@ module.exports = {
         description: {
             include: ['aeioubaeioucaeioufaeioup', '123456789'],
             minMax: [10, 20],
-            dominiosModels: Modelos.email
+            domainModels: Models.emails
         }
     },
-    senha: {
+    password: {
         require: true,
         type: DataTypes.string,
         description: {
@@ -30,7 +30,7 @@ module.exports = {
         require: true,
         type: DataTypes.cpf
     },
-    data_nascimento: {
+    birth_date: {
         require: true,
         type: DataTypes.data,
         description: {
@@ -48,7 +48,12 @@ module.exports = {
             include: '0123456789'
         }
     },
-    pais: {
+    countries: {
+        require: true,
+        space: false,
+        models: Models.countries
+    },
+    state: {
         require: true,
         type: DataTypes.string,
         description: {
@@ -58,7 +63,7 @@ module.exports = {
             case: Cases.camiCase
         }
     },
-    estado: {
+    city: {
         require: true,
         type: DataTypes.string,
         description: {
@@ -68,17 +73,7 @@ module.exports = {
             case: Cases.camiCase
         }
     },
-    cidade: {
-        require: true,
-        type: DataTypes.string,
-        description: {
-            space: true,
-            minMax: [5, 10],
-            include: 'aeioubdc',
-            case: Cases.camiCase
-        }
-    },
-    complemento: {
+    complement: {
         require: true,
         type: DataTypes.string,
         description: {

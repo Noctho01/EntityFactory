@@ -1,4 +1,4 @@
 node_modules
-src/modelos/modelos.js
-src/esquemas/anunciante.js
-src/esquemas/cliente.js
+src/models/models.js
+src/schemes/anunciante.js
+src/schemes/cliente.js
