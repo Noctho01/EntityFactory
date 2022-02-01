@@ -1,16 +1,26 @@
 <h1 align="center"> :busts_in_silhouette: EntityFactory :factory: </h1>
 <p> Gera entidades de formulários (usuários, produtos, categorias etc) e envia para o body da requisição post de sua API </p>
+<br>
+
+<h2>:ballot_box: Dependencias </h2>
+
+- axios : https://axios-http.com/docs/intro
+- npm random : https://github.com/transitive-bullshit/random
+- npm cross-env : https://www.npmjs.com/package/cross-env
+
+<br>
 
 <h2> :sunny: Get Started</h2>
 
 ~~~
 > git init
-> git clone https://github.com/Noctho01/auto-createPost.git
+> git clone https://github.com/Noctho01/EntityFactory.git
 > npm install
 ~~~
 
 <p> O diretorio deste programa está em /src, dentro voce encontrara o arquivo index.js que possui um pequeno codigo que vai automatizar o envio das requisiçoes POST para o     endereço endpoint especificado. <p>
-
+<br>
+ 
 <h2>:mechanical_arm: Executando programa </h2>
 
 ~~~
@@ -21,7 +31,7 @@
 <p><b>set E=nome_esquema</b><br> especifica qual esquema o programa vai ler para gerar a entidade. <br> ex: "set E=clientes&&" </p>
 <p><b>set Q=quantidade_entidades_geradas</b><br> informa o numero total de entidades a serem geradas. <br> ex: "set Q=20&&" </p>
 <p><b>set R=rota</b><br> informa a rota da requisição, deve ser informado com "http" ou "https no inicio. <br> ex: set R=http:localhost:3030/cadastrar/cliente&& </p>
- 
+ <br>
 
 <br> 
 <h2>:wrench::gear: Configurando </h2>
@@ -30,19 +40,19 @@ Para isso EntityFactory faz juiz ao nome criando (fabricando) entidades especifi
 
 <h3>:page_facing_up: Esquemas </h3>
 <p> Encarregados de armazenar as regras de negocio da entidade, especificando quais são os campos para os fomularios/json e as regras para gerar seu valor aleatoriamente. </p>
+<br>
+
 <h3>:memo: Criando um esquema </h3>
 <p> dentro do diretorio /src/esquemas, crie um arquivo com o nome da entidade que pretende criar <br> Exemplo: <code>usuario.js</code></p>
 
 ~~~~js
 const { DataTypes, Cases } = require('../EntityFactory/core/EntityMaker')
-const Modelos = require('../modelos/modelos_examples')
 
 module.exports = { /* esquema aqui */ }
 ~~~~
 
 <p> Na primeira linha importamos os objetos que auxiliarão na especifação das regras no esquema</p>
 <p><b><i>DataTypes</i></b> : objeto com especificação dos tipos de dados que podem ser gerados <br> <b><i>Cases</i></b> : objeto com especificações dos tipos de cases de uma string (cami cases, upper cases...)<p>
-<p> Na segunda linha importamos um modulo que possui os <b><i>Modelos</i></b> de dados que voce deve especificar em /src/modelos/modelo.js </p>
 
 #
 
@@ -66,7 +76,6 @@ module.exports = {
 
 <h4><code> require </code></h4>
 <p> especifica se o campo é obrigatorio ou não, caso não seja, o campo pode ser ou não criado, a decisao é feita aleatoriamente</p>
-<br>
 
 <h4><code> type </code></h4>
 <p> usando DataTypes, deve informar qual será o tipo do valor deste campo
@@ -81,12 +90,9 @@ module.exports = {
   <li><b>booleano</b> ==> valores booleanos true, false || 1, 0</li>
 </ul>
 </p>
-<br>
 
 <h4><code> description </code></h4>
 <p> Especifica as regras aplicadas naquele campo, porem elas seguem o seu tipo. Casa tipo de dados possui um grupo especifico de descriços</p>
-<br>
-
 <h4> Campos de description </h4>
 
 | campo           | type                                               | valores                                                    | função                                                                                                                                                                                          |
@@ -102,4 +108,66 @@ module.exports = {
 | dMinMax         | DataTypes.data                                     | [diaMinimo, diaMaximo]                                     | especifica o dia minimo e maximo a ser gerado pelo programa ex: dMinMax: [1, 31] >> 19 \|\| ...                                                                                                 |
 <br>
 
- #
+<br> 
+ <h2>:kaaba: Modelos </h2>
+ <p> Os modelos são valores que voce estabelece para que sejam escolhidos aleatoriamente para aquele campo em especifico, campos que possuem modelos não precisam ter um tipo, apenas usando a propriedade <code>modelos</code> e nele passando um array com os possiveis valores a serem escolhidos.<br> Dentro de /src/modelos voce deve criar um arquivo chamado modelos.js </p>
+ 
+ ~~~~js
+ // Exemplo de um arquivo modelos.js
+ 
+ module.exports = {
+    // Modelos aqui ...
+    nomes: {
+        primeiro: [
+            'Gabriel', 'Gustavo', 'Pedro', 'Maria',
+            'Rafael', 'Lucas', 'Alex', 'Barbara',
+            'Natalia', 'Geni', 'Jose', 'Antonio',
+            'Marcia'
+        ],
+        segundo: [
+            'Dos Santos', 'Da Silva', 'Alencar',
+            'De Nobrega', 'Diniz', 'Oliveira',
+            'Dos Anjos', 'Gomes', 'Cunha',
+            'Souza', 'Rodrigues'
+        ]
+    },
+    emails: [
+        'gmail', 'hotmail', 'alura',
+        'yahoo', 'outlook', 'apple'
+    ],
+    paises: [
+        'Brasil', 'Estados Unidos',
+        'Argentina', 'China'
+    ],
+
+}
+ ~~~~
+ 
+ <p> O mesmo deve exportar um objeto que possua chaves que voce possa usar como referencia, e seus valores devem ser arrays ou objetos com arrays. os valores dentro de cada array seram usados pelo EntityFactory para gerar strigns com valores aleatorios baseado nos modelos.<p>
+ 
+ <h3>:page_facing_up::kaaba: Esquemas com Modelos </h3>
+ 
+ ~~~~js
+ const { DataTypes, Cases } = require('../EntityFactory/core/EntityMaker')
+ const Modelos = require('../modelos/modelos_examples')
+ 
+ module.exports = { /* Esquema aqui */ }
+ ~~~~
+ 
+ <br>
+ <p> Na segunda linha importamos um modulo que possui os <b><i>Modelos</i></b> de dados que voce deve especificar em /src/modelos/modelo.js </p>
+ 
+ ~~~~js
+ module.exports = {
+   nome: {
+     require: true,
+     space: true,
+     modelos: Modelos.nomes || ['Pedro', 'Carla', 'Marcos', 'Felipe', 'Angela'] || { primeiroNome: ['Pedro', 'Marcos'], segundoNome: ['Da Silva', 'Dos Santos'] }
+   }
+ }
+ ~~~~
+ 
+ <p> como dito antes, ao criar um campo que utiliza modelos, não é informado o tipo do mesmo, <code>require</code> e <code>space</code> possuem a mesma função em campos tipados porem <code>space</code> não precisa está dentro de uma propriedade <code>description</code> quando se trata de um campo com modelos. </p>
+ 
+#
+
