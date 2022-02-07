@@ -13,18 +13,22 @@ module.exports = class EntityMaker {
         return entity
     }
 
-    #treatSqueme(squeme) {
+    #treatSqueme(scheme) {
         /*
             verificando se esquema é necessario, caso sim o codigo
             continua, caso não, a decição de sua criçao sera decidida
             aleatoriamente usando a lib random
         */
-        const necessarySqueme = squeme.require ? 1 : random.boolean()
-        if (!necessarySqueme) return null
+        const necessaryScheme = scheme.require ? 1 : random.boolean()
+        if (!necessaryScheme) return null
+
+        // Vendo se o scheme possui description e atribuindo minMax
+        let minMax
+        if (scheme.description) minMax = scheme.description.minMax
             
-        return squeme.type ?
-            this.#treateType(squeme.type, squeme.description, squeme.minMax || null) :
-            this.#treateModels(squeme.models, squeme.space)
+        return scheme.type ?
+            this.#treateType(scheme.type, scheme.description, minMax || null) :
+            this.#treateModels(scheme.models, scheme.space)
     }
 
 
