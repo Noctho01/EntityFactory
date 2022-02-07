@@ -26,9 +26,9 @@ module.exports = class EntityMaker {
         let minMax
         if (scheme.description) minMax = scheme.description.minMax
             
-        return scheme.type ?
-            this.#treateType(scheme.type, scheme.description, minMax || null) :
-            this.#treateModels(scheme.models, scheme.space)
+        return scheme.type
+            ? this.#treateType(scheme.type, scheme.description, minMax || null)
+            : this.#treateModels(scheme.models, scheme.space, scheme.isArray)
     }
 
 
@@ -61,14 +61,24 @@ module.exports = class EntityMaker {
         Gera valor aleatorio para o campo baseado
         nos valores disponiveis em @modelos
     */
-    #treateModels(models, space) {
+    #treateModels(models, space, isArray) {
         if (models instanceof Array) return models[random.int(0, models.length - 1)]
         
-        let value = ''
+        const value = []
         Object.keys(models).forEach( item => {
-            value += models[item][random.int(0, models[item].length - 1)] + (space ? " ": "")
+            const possibleValue = models[item][random.int(0, models[item].length - 1)]
+            if (value.indexOf(possibleValue) == -1) value.push(possibleValue)
         })
-        return value.trim()
+
+        return isArray
+            ? value
+            : space
+                ? value
+                    .toString()
+                    .replace(/\,/g, ' ')
+                : value
+                    .toString()
+                    .replace(/\,/g, '')
     }
 
 

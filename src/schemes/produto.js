@@ -8,12 +8,13 @@ module.exports = {
     },
     generos: {
         require: true,
-        space: false,
-        models: [
-            [parseInt(Math.random() * (11 - 1) + 1), parseInt(Math.random() * (11 - 1) + 1), parseInt(Math.random() * (11 - 1) + 1)],
-            [parseInt(Math.random() * (11 - 1) + 1), parseInt(Math.random() * (11 - 1) + 1), parseInt(Math.random() * (11 - 1) + 1)],
-            [parseInt(Math.random() * (11 - 1) + 1), parseInt(Math.random() * (11 - 1) + 1), parseInt(Math.random() * (11 - 1) + 1)],
-        ]
+        isArray: true,
+        models: {
+            genero1: [parseInt(Math.random() * (11 - 1) + 1)],
+            genero2: [parseInt(Math.random() * (11 - 1) + 1)],
+            genero3: [parseInt(Math.random() * (11 - 1) + 1)],
+            genero4: [parseInt(Math.random() * (11 - 1) + 1)],
+        }
     },
     plataforma_id: {
         require: true,
