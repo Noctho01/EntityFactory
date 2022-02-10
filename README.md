@@ -23,15 +23,31 @@
  
 <h2>:mechanical_arm: Executando programa </h2>
 
-~~~
-> set E=nome_esquema&& set Q=quantidade_entidades_geradas&& set R=rota&& node src/index.js
-~~~
+<p>em um terminal windows com cross-env...<br>
+a dependencia <code>cross-env</code> permite que seja possivel a declaração de varias variaveis de ambiente no CLI do windows</p>
 
-<p> Dentro do diretorio do programa (fora de src) escreva este comando a cima, EntityFactory utiliza a dependencia cross-env para declarar variaveis de ambiente na linha de comando do cmd. </p>
-<p><b>set E=nome_esquema</b><br> especifica qual esquema o programa vai ler para gerar a entidade. <br> ex: "set E=clientes&&" </p>
-<p><b>set Q=quantidade_entidades_geradas</b><br> informa o numero total de entidades a serem geradas. <br> ex: "set Q=20&&" </p>
-<p><b>set R=rota</b><br> informa a rota da requisição, deve ser informado com "http" ou "https no inicio. <br> ex: set R=http:localhost:3030/cadastrar/cliente&& </p>
- <br>
+~~~~
+> set SCHEME_ENV=usuario&& set QUANTITY_ENV=50&& set ROUTE_ENV=http://localhost:3000/registrar/usuario&& node src/index.js
+~~~~
+
+<br>
+
+<p>em um terminal linux...</p>
+
+~~~~
+$ sudo SCHEME_ENV=usuario QUANTITY_ENV=50 ROUTE_ENV=http://localhost:3000/registrar/usuario node src/index.js
+~~~~
+<br>
+
+<p> Dentro do diretorio do programa (fora de src) escreva este comando a cima. É preciso declarar as variaveis de ambiente para que o EntityFactor seja executado corretamente.</p>
+
+<p>
+<b>Variaveis de Ambiente:</b>
+ <li><code>SCHEME_ENV</code>: recebe o nome do esquema a ser usado</li>
+ <li><code>QUANTITY_ENV</code>: recebe o numero de entidades que seram criadas</li>
+ <li><code>ROUTE_ENV</code>: recebe a url da rota POST que recebera os dados</li>
+</p>
+<br>
 
 <br> 
 <h2>:wrench::gear: Configurando </h2>
