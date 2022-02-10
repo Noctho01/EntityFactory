@@ -89,10 +89,17 @@ module.exports = {
       minMax: [8, 15],
       include: 'abc123',
       space: false,
-      case: 'camiCase'
+      case: 'textCase'
     }
   }
 }
+
+// possivel resultado:
+// {
+//   name: 'Sarah',
+//   email: 'aooiu2213@hotmail.com',
+//   password: 'A2ccb1a3221'
+// }
 ~~~~
 
 
@@ -170,26 +177,64 @@ module.exports = {
  <h3>:page_facing_up::kaaba: Esquemas com Modelos </h3>
  
  ~~~~js
- const { DataTypes, Cases } = require('../EntityFactory/core/EntityMaker')
  const Models = require('../models/models_examples')
  
- module.exports = { /* Esquema aqui */ }
- ~~~~
- 
- <br>
- <p> Na segunda linha importamos um modulo que possui os <b><i>Modelos</i></b> de dados que voce deve especificar em /src/modelos/modelo.js </p>
- 
- ~~~~js
  module.exports = {
    nome: {
      require: true,
      space: true,
      models: Models.nomes || ['Pedro', 'Carla', 'Marcos', 'Felipe', 'Angela'] || { primeiroNome: ['Pedro', 'Marcos'], segundoNome: ['Da Silva', 'Dos Santos'] }
+   },
+   tecnologias: {
+     require: true,
+     isArray: true,
+     models: Models.tecnologias || {
+       ['Java', 'Python', 'JavaScript', 'Go', 'TypeScript', 'PHP'],
+       ['MySql', 'MongoDb', 'Postgree', 'SqlServer'],
+       ['AWS', 'Google Cloud', 'Azure', 'Heroku'],
+     }
    }
  }
+ 
+ // resultado possivel:
+ // {
+ //   nome: "Pedro Da Silva",
+ //   tecnologias: ['Python', 'MySql', 'Azure']
+ // }
  ~~~~
  
- <p> como dito antes, ao criar um campo que utiliza modelos, não é informado o tipo do mesmo, <code>require</code> e <code>space</code> possuem a mesma função em campos tipados porem <code>space</code> não precisa está dentro de uma propriedade <code>description</code> quando se trata de um campo com modelos. </p>
+ <p> Na primeira linha importamos um modulo que possui os <b><i>Modelos</i></b> de dados que voce deve especificar em /src/modelos/modelo.js </p>
+ 
+ <p> como dito antes, ao criar um campo que utiliza modelos, não é informado o tipo do mesmo, <code>require</code> e <code>space</code> possuem a mesma função em campos tipados porem <code>space</code> não é uma propriedade de <code>description</code> quando se trata de um campo com modelos. </p>
+ 
+<p> veja tambem que no segundo campo 'tecnologias', temo a propriedade <code>isArray</code>.<br>
+ela diz ao EntityFactory que aquele campo é um array, assim voce pode definir o tamanho do array de uma maneira simples. Voce precisa especificar um modelo do tipo objeto e o numero de chaves sera o numero do tamanho deste array.
+<br>
+<i>exemplo:</i>
+<br>
+
+~~~~js
+// esquema com um campo do tipo array
+const frutas = {
+  require: true,
+  isArray: true,
+  models: {
+    alimentosChave1: ['Banana', 'Melancia', 'Melão', 'Maçã'],
+    alimentosChave2: ['Amora', 'Uva', 'Mnga', 'Abacaxi'],
+    alimentosChave3: ['Açaí', 'Abacate', 'Laranja', 'Morando'],
+    alimentosChave4: ['Acerola', 'Cacau', 'Cajá', 'Caqui']
+  }
+}
+
+// possivel resultado:
+// {
+//   frutas: ['Melancia', 'Uva', 'Açai', 'Caqui']
+// {
+~~~~
+ 
+</p>
+ 
+<p> como foram declaras 4 chaves no objeto em models, o resultado será um array com 4 campos</p>
  
 #
 
