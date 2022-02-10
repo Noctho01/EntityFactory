@@ -1,5 +1,2 @@
 node_modules
-src/models/models.js
-src/schemes/usuario.js
-src/schemes/produto.js
 test

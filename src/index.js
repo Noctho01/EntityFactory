@@ -3,13 +3,13 @@ require('dotenv').config()
 const axios = require('axios')
 
 // Esquema de regras de negocio da entidade que sera criada
-const scheme = require(`./schemes/${process.env.E}`)
+const scheme = require(`./schemes/${process.env.SCHEME_ENV}`)
 
- // Endpoint da api que recebera a requisição POST
-const urlApiPlayforward = process.env.R
+// Endpoint da api que recebera a requisição POST
+const urlApiPlayforward = process.env.ROUTE_ENV
 
 const EntityFactory = require('./EntityFactory/EntityFactory')
-const entitys = EntityFactory(scheme, process.env.Q)
+const entitys = EntityFactory(scheme, process.env.QUANTITY_ENV)
 
 // Varrendo array com objetos entidade criados para efeturar o post
 entitys.forEach( async entity => {
