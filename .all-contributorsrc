@@ -1,0 +1,26 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "Noctho01",
+      "name": "Vinicius dos Santos Rodrigues",
+      "avatar_url": "https://avatars.githubusercontent.com/u/62301853?v=4",
+      "profile": "https://github.com/Noctho01",
+      "contributions": [
+        "infra",
+        "test",
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "EntityFactory",
+  "projectOwner": "Noctho01",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true
+}
