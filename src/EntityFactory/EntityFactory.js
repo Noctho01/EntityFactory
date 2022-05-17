@@ -1,9 +1,11 @@
 const EntityMaker = require('./core/EntityMaker')
 
-/*
-    @esquema = objeto com especificaçoes de negocio para gerar entidade
-    @quantidade = quantidade de entidades a serem criadas
-*/
+/**
+ * 
+ * @param {object} squeme objeto com especificaçoes de negocio para gerar entidade
+ * @param {number} quantity quantidade de entidades a serem criadas
+ * @returns {array} EntityMaker Instances
+ */
 module.exports = function EntityFactory(squeme, quantity) {
     const entitys = []
     for ( let i = 0; i < quantity; i++ ) {
